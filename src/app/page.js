@@ -64,7 +64,7 @@ export default function Home() {
       if (res.ok) {
         setCommentText("");
         setCommentingTweetId(null);
-        fetchTweets();
+        fetchTweets(); // refresh after comment
       } else {
         const { error } = await res.json();
         alert("Failed to post comment: " + error);
@@ -73,7 +73,7 @@ export default function Home() {
       console.error("Failed to comment:", err);
     }
   };
-  console.log(commentText, "commentText");
+
   const fetchTweets = async () => {
     try {
       const res = await fetch("/api/tweets");
@@ -100,7 +100,7 @@ export default function Home() {
     router.push("/login");
     return null;
   }
-
+  console.log(tweets, "", commentingTweetId);
   return (
     <div className="min-h-screen bg-black text-white flex justify-center">
       <div className="w-full max-w-md p-4 space-y-4">
@@ -171,7 +171,7 @@ export default function Home() {
                   }
                   className="cursor-pointer hover:text-blue-400 transition"
                 >
-                  💬 {tweet.comments}
+                  💬 {tweet.comments?.length || 0}
                 </span>
                 <span>🔁 {tweet.retweets}</span>
                 <span
