@@ -74,6 +74,19 @@ export default function Home() {
     }
   };
 
+  const handleRetweet = async (tweetId) => {
+    try {
+      const res = await fetch(`/api/tweets/${tweetId}/retweet`, {
+        method: "POST",
+      });
+      if (res.ok) {
+        fetchTweets();
+      }
+    } catch (err) {
+      console.error("Failed to retweet:", err);
+    }
+  };
+
   const fetchTweets = async () => {
     try {
       const res = await fetch("/api/tweets");
@@ -177,7 +190,13 @@ export default function Home() {
                 >
                   💬 {tweet.comments?.length || 0}
                 </span>
-                <span>🔁 {tweet.retweets}</span>
+                <span
+                  onClick={() => handleRetweet(tweet._id)}
+                  className="cursor-pointer hover:text-blue-400 transition"
+                >
+                  🔁 {tweet.retweets || 0}
+                </span>
+
                 <span
                   onClick={() => handleLike(tweet._id)}
                   className="cursor-pointer hover:text-red-500 transition"
