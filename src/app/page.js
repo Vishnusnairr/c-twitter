@@ -204,6 +204,21 @@ export default function Home() {
                   </button>
                 </div>
               )}
+              {tweet.comments && tweet.comments.length > 0 && (
+                <div className="mt-2 space-y-2 pl-10 border-l border-gray-700">
+                  {tweet.comments.map((comment, index) => (
+                    <div key={index} className="text-sm text-gray-300">
+                      <span className="font-semibold text-white">
+                        {comment.user?.name || "Anonymous"}
+                      </span>{" "}
+                      <span className="text-gray-500">
+                        @{comment.user?.email?.split("@")[0] || "user"}
+                      </span>
+                      : {comment.text}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         ))}
