@@ -5,9 +5,8 @@ import { createUser, getUserByEmail } from "@/lib/db/users";
 export const authOptions = {
   providers: [
     GoogleProvider({
-      clientId:
-        "413019743867-tlcsvlnn2jqvv170f054hbdf07f5h5pl.apps.googleusercontent.com",
-      clientSecret: "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",
+      clientId: process.env.GOOGLE_CLIENT_ID, // use env vars here
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
   session: {
