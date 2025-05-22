@@ -2,7 +2,8 @@ import { connectToDB } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
 export async function POST(req, context) {
-  const { id } = context.params;
+  const params = await context.params;
+  const { id } = params;
 
   if (!id) {
     return new Response(JSON.stringify({ error: "Missing Tweet ID" }), {
